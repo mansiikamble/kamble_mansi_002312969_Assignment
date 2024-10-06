@@ -4,17 +4,31 @@
  */
 package ui;
 
+import Model.Address;
+import Model.Person;
+import Model.PersonDirectory;
+import java.awt.CardLayout;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author mansi kamble
  */
 public class CreatePersonJPanel extends javax.swing.JPanel {
+    
+    JPanel workAreaPanel;
+    PersonDirectory pplDirectory;
+    private Person person;
 
     /**
      * Creates new form CreatePersonJPanel
      */
-    public CreatePersonJPanel() {
+    public CreatePersonJPanel(JPanel workArea,PersonDirectory directory) {
         initComponents();
+        this.workAreaPanel = workArea;
+        pplDirectory = directory; 
     }
 
     /**
@@ -36,7 +50,7 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
         lblAge = new javax.swing.JLabel();
         txtSalary = new javax.swing.JTextField();
         lblSalary = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtCreditScore = new javax.swing.JTextField();
         lblCreditScore = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
@@ -54,49 +68,83 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
         txtPhoneNumberHome = new javax.swing.JTextField();
         lblPhoneNumberHome = new javax.swing.JLabel();
         WorkAddressPanel = new javax.swing.JPanel();
-        jTextField8 = new javax.swing.JTextField();
+        txtStreetAddressWork = new javax.swing.JTextField();
         lblStreetAddressWork = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtUnitNumberWork = new javax.swing.JTextField();
         lblUnitNumberWork = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtCityWork = new javax.swing.JTextField();
         lblCityWork = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtStateWork = new javax.swing.JTextField();
         lblState = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtZipWork = new javax.swing.JTextField();
         lblZipWork = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        txtPhoneNumberWork = new javax.swing.JTextField();
         lblPhoneNumberWork = new javax.swing.JLabel();
         btnSavePerson = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(197, 223, 249));
+
+        txtFirstName.setBackground(new java.awt.Color(255, 255, 204));
+
         lblFirstName.setText("First Name");
+
+        txtSSN.setBackground(new java.awt.Color(255, 255, 204));
 
         lblSSN.setText("SSN");
 
+        txtLastName.setBackground(new java.awt.Color(255, 255, 204));
+
         lblLastName.setText("Last Name");
+
+        txtAge.setBackground(new java.awt.Color(255, 255, 204));
 
         lblAge.setText("Age");
 
+        txtSalary.setBackground(new java.awt.Color(255, 255, 204));
+
         lblSalary.setText("Salary");
+
+        txtCreditScore.setBackground(new java.awt.Color(255, 255, 204));
 
         lblCreditScore.setText("Credit Score");
 
+        btnBack.setBackground(new java.awt.Color(0, 0, 153));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
         btnBack.setText(">>>Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Create New Person");
 
+        HomeAddressPanel.setBackground(new java.awt.Color(183, 202, 239));
         HomeAddressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Home Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+
+        txtStreetAddressHome.setBackground(new java.awt.Color(255, 255, 204));
 
         lblStreetAddressHome.setText("Street Address");
 
+        txtCityHome.setBackground(new java.awt.Color(255, 255, 204));
+
         lblCityHome.setText("City");
+
+        txtZipHome.setBackground(new java.awt.Color(255, 255, 204));
 
         lblZipHome.setText("Zip Code");
 
+        txtUnitNumberHome.setBackground(new java.awt.Color(255, 255, 204));
+
         lblUnitNumberHome.setText("Unit Number");
 
+        txtStateHome.setBackground(new java.awt.Color(255, 255, 204));
+
         lblStateHome.setText("State");
+
+        txtPhoneNumberHome.setBackground(new java.awt.Color(255, 255, 204));
 
         lblPhoneNumberHome.setText("Phone Number");
 
@@ -143,40 +191,56 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
             HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HomeAddressPanelLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStreetAddressHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblStreetAddressHome)
+                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtUnitNumberHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblUnitNumberHome)))
+                        .addComponent(lblUnitNumberHome))
+                    .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtStreetAddressHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStreetAddressHome)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCityHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCityHome)
+                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtStateHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblStateHome)))
+                        .addComponent(lblStateHome))
+                    .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCityHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCityHome)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtZipHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblZipHome)
+                .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtPhoneNumberHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblPhoneNumberHome)))
+                        .addComponent(lblPhoneNumberHome))
+                    .addGroup(HomeAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtZipHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblZipHome)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
+        WorkAddressPanel.setBackground(new java.awt.Color(183, 202, 239));
         WorkAddressPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Work Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+
+        txtStreetAddressWork.setBackground(new java.awt.Color(255, 255, 204));
 
         lblStreetAddressWork.setText("Street Address");
 
+        txtUnitNumberWork.setBackground(new java.awt.Color(255, 255, 204));
+
         lblUnitNumberWork.setText("Unit Number");
+
+        txtCityWork.setBackground(new java.awt.Color(255, 255, 204));
 
         lblCityWork.setText("City");
 
+        txtStateWork.setBackground(new java.awt.Color(255, 255, 204));
+
         lblState.setText("State");
 
+        txtZipWork.setBackground(new java.awt.Color(255, 255, 204));
+
         lblZipWork.setText("Zip Code");
+
+        txtPhoneNumberWork.setBackground(new java.awt.Color(255, 255, 204));
 
         lblPhoneNumberWork.setText("Phone Number");
 
@@ -194,57 +258,65 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
                             .addComponent(lblStreetAddressWork, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtStreetAddressWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCityWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUnitNumberWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(WorkAddressPanelLayout.createSequentialGroup()
                         .addComponent(lblState, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtStateWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(WorkAddressPanelLayout.createSequentialGroup()
                         .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblPhoneNumberWork, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(lblZipWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPhoneNumberWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtZipWork, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(75, 75, 75))
         );
 
-        WorkAddressPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField10, jTextField11, jTextField12, jTextField13, jTextField8, jTextField9, lblCityWork, lblPhoneNumberWork, lblState, lblStreetAddressWork, lblUnitNumberWork, lblZipWork});
+        WorkAddressPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCityWork, lblPhoneNumberWork, lblState, lblStreetAddressWork, lblUnitNumberWork, lblZipWork, txtCityWork, txtPhoneNumberWork, txtStateWork, txtStreetAddressWork, txtUnitNumberWork, txtZipWork});
 
         WorkAddressPanelLayout.setVerticalGroup(
             WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(WorkAddressPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStreetAddressWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblStreetAddressWork))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUnitNumberWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUnitNumberWork))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCityWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCityWork))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStateWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblState))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtZipWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblZipWork))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(WorkAddressPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneNumberWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPhoneNumberWork))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
+        btnSavePerson.setBackground(new java.awt.Color(0, 0, 153));
+        btnSavePerson.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnSavePerson.setForeground(new java.awt.Color(255, 255, 255));
         btnSavePerson.setText("Save");
+        btnSavePerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSavePersonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -287,20 +359,20 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblCreditScore, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(40, 40, 40)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(txtCreditScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(HomeAddressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(WorkAddressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnSavePerson)
-                .addGap(372, 372, 372))
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGap(378, 378, 378)
+                .addComponent(btnSavePerson, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField6, lblAge, lblCreditScore, lblFirstName, lblLastName, lblSSN, lblSalary, txtAge, txtFirstName, txtLastName, txtSSN, txtSalary});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCreditScore, lblFirstName, lblLastName, lblSSN, lblSalary, txtAge, txtCreditScore, txtFirstName, txtLastName, txtSSN, txtSalary});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,16 +399,181 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblSalary)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCreditScore, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCreditScore))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(HomeAddressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(WorkAddressPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnSavePerson)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSavePerson, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSavePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePersonActionPerformed
+        // TODO add your handling code here:
+        
+        Date date = new Date();
+        
+        int pSSN, pAge, pHomeUnit, pHomeZip, pHomePhone, pWorkUnit, pWorkZip, pWorkPhone;
+        Double pSalary, pCreditScore;
+        
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String ssn = txtSSN.getText();
+        String age = txtAge.getText();
+        String salary = txtSalary.getText();
+        String creditScore = txtCreditScore.getText();
+        
+        String homeStreetAdd = txtStreetAddressHome.getText();
+        String homeUnitNumber = txtUnitNumberHome.getText();
+        String homeCity = txtCityHome.getText();
+        String homeState = txtStateHome.getText();
+        String homeZipCode = txtZipHome.getText();
+        String homePhone = txtPhoneNumberHome.getText();
+        
+        String workStreetAdd = txtStreetAddressWork.getText();
+        String workUnitNumber = txtUnitNumberWork.getText();
+        String workCity = txtCityWork.getText();
+        String workState = txtStateWork.getText();
+        String workZipCode = txtZipWork.getText();
+        String workPhone = txtPhoneNumberWork.getText();
+        
+        if("".equals(firstName.trim()) || "".equals(lastName.trim()) || "".equals(ssn.trim()) || 
+                "".equals(age.trim()) || "".equals(salary.trim()) || "".equals(creditScore.trim())) {
+            JOptionPane.showMessageDialog(this, "Enter All Personal Details", "Warning", JOptionPane.WARNING_MESSAGE);
+        } 
+        else if("".equals(homeStreetAdd.trim()) || "".equals(homeUnitNumber.trim()) || "".equals(homeCity.trim()) || 
+                "".equals(homeState.trim()) || "".equals(homeZipCode.trim()) || "".equals(homePhone.trim())) {
+            JOptionPane.showMessageDialog(this, "Enter All Home Address Fields", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        else if("".equals(workStreetAdd.trim()) || "".equals(workUnitNumber.trim()) || "".equals(workCity.trim()) || 
+                "".equals(workState.trim()) || "".equals(workZipCode.trim()) || "".equals(workPhone.trim())) {
+            JOptionPane.showMessageDialog(this, "Enter All Work Address Fields", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+            try {
+                pSSN = Integer.parseInt(ssn);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "SSN is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pAge = Integer.parseInt(age);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Age is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pSalary = Double.valueOf(salary);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Salary is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pCreditScore = Double.valueOf(creditScore);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Credit Score is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pHomeUnit = Integer.parseInt(homeUnitNumber);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Home Unit Number is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pHomeZip = Integer.parseInt(homeZipCode);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Home Zip Code is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pHomePhone = Integer.parseInt(homePhone);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Home Phone Number is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pWorkUnit = Integer.parseInt(workUnitNumber);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Work Unit Number is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pWorkZip = Integer.parseInt(workZipCode);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Work Zip Code is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            try {
+                pWorkPhone = Integer.parseInt(workPhone);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Work Phone Number is a Numeric Value", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            Person person = pplDirectory.addPerson();
+            Address homeAddress = new Address();
+            Address workAddress = new Address();
+           
+            person.setFirstName(firstName);
+            person.setLastName(lastName);
+            person.getSsn();
+            person.setAge(pAge);
+            person.setSalary(pSalary);
+            person.setCreditScore(pCreditScore);
+            person.setFieldCreation(date);
+            
+            homeAddress.setStreetAddress(homeStreetAdd);
+            homeAddress.setUnitNumber(pHomeUnit);
+            homeAddress.setCity(homeCity);
+            homeAddress.setZipCode(pHomeZip);
+            homeAddress.setPhoneNumber(homePhone);
+            
+            person.setHomeAddress(homeAddress);
+            
+            workAddress.setStreetAddress(workStreetAdd);
+            workAddress.setUnitNumber(pWorkUnit);
+            workAddress.setCity(workCity);
+            workAddress.setState(workState);
+            workAddress.setZipCode(pWorkZip);
+            workAddress.setPhoneNumber(workPhone);
+            
+            person.setWorkAddress(workAddress);
+            
+            JOptionPane.showMessageDialog(this, "Person Created Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            txtFirstName.setText("");
+            txtLastName.setText("");
+            txtSSN.setText("");
+            txtAge.setText("");
+            txtSalary.setText("");
+            txtCreditScore.setText("");
+            
+            txtStreetAddressHome.setText("");
+            txtUnitNumberHome.setText("");
+            txtCityHome.setText("");
+            txtStateHome.setText("");
+            txtZipHome.setText("");
+            txtPhoneNumberHome.setText("");
+            
+            txtStreetAddressWork.setText("");
+            txtUnitNumberWork.setText("");
+            txtCityWork.setText("");
+            txtStateWork.setText("");
+            txtZipWork.setText("");
+            txtPhoneNumberWork.setText("");
+        }   
+    }//GEN-LAST:event_btnSavePersonActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        
+        workAreaPanel.remove(this);
+        CardLayout layout = (CardLayout) workAreaPanel.getLayout();
+        layout.previous(workAreaPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -344,13 +581,6 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel WorkAddressPanel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSavePerson;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblCityHome;
     private javax.swing.JLabel lblCityWork;
@@ -372,14 +602,21 @@ public class CreatePersonJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblZipWork;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtCityHome;
+    private javax.swing.JTextField txtCityWork;
+    private javax.swing.JTextField txtCreditScore;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtPhoneNumberHome;
+    private javax.swing.JTextField txtPhoneNumberWork;
     private javax.swing.JTextField txtSSN;
     private javax.swing.JTextField txtSalary;
     private javax.swing.JTextField txtStateHome;
+    private javax.swing.JTextField txtStateWork;
     private javax.swing.JTextField txtStreetAddressHome;
+    private javax.swing.JTextField txtStreetAddressWork;
     private javax.swing.JTextField txtUnitNumberHome;
+    private javax.swing.JTextField txtUnitNumberWork;
     private javax.swing.JTextField txtZipHome;
+    private javax.swing.JTextField txtZipWork;
     // End of variables declaration//GEN-END:variables
 }

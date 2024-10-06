@@ -57,20 +57,20 @@ public class Person {
         this.age = age;
     }
 
-    public Double getGpa() {
+    public Double getSalary() {
         return salary;
     }
 
-    public void setGpa(Double gpa) {
-        this.salary = gpa;
+    public void setSalary(Double salary) {
+        this.salary = salary;
     }
 
-    public Double getWeight() {
+    public Double getCreditScore() {
         return creditScore;
     }
 
-    public void setWeight(Double weight) {
-        this.creditScore = weight;
+    public void setCreditScore(Double creditScore) {
+        this.creditScore = creditScore;
     }
 
     public Address getHomeAddress() {
@@ -89,11 +89,11 @@ public class Person {
         this.workAddress = workAddress;
     }
 
-    public Date getBirthDate() {
+    public Date getFieldCreationDate() {
         return fieldcreationDate;
     }
 
-    public void setBirthDate(Date fieldcreationDate) {
+    public void setFieldCreation(Date fieldcreationDate) {
         this.fieldcreationDate = fieldcreationDate;
     }
     

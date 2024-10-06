@@ -38,6 +38,12 @@ public class PersonDirectory {
     
     public Person search(String searchInput) {
         //search code 
+        for(Person p : people) {
+            if(p.getFirstName().contains(searchInput) || p.getLastName().contains(searchInput) ||
+                    p.getHomeAddress().getStreetAddress().contains(searchInput)||
+                            p.getWorkAddress().getStreetAddress().contains(searchInput))
+                return p;
+        }
         return null;
     }
 }

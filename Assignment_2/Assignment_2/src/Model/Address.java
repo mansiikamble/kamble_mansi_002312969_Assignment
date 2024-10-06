@@ -15,7 +15,7 @@ public class Address {
     private String city;
     private String state;
     private int zipCode;
-    private int phoneNumber;
+    private String phoneNumber;
 
     public String getStreetAddress() {
         return streetAddress;
@@ -56,13 +56,14 @@ public class Address {
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
-
-    public int getPhoneNumber() {
+    
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
-}
+
+    }
+
