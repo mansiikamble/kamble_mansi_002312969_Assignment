@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author kal bugrara
  */
 public class CourseCatalog {
-    Department department; //belongs to the department
+    Department department; //belongs to the 
     String lastupdated;
         ArrayList<Course> courselist;
     

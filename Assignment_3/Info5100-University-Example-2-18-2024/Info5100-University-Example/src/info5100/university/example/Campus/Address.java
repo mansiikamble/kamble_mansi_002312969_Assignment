@@ -21,6 +21,6 @@ public class Address {
     zipcode = zip;
     gps = g;  
     }
-    
+ 
 
 }
