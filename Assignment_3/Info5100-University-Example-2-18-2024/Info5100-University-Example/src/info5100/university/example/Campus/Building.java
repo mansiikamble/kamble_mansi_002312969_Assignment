@@ -21,7 +21,7 @@ public class Building {
         floors = new ArrayList();
     }
     public Floor addNewFloor(int n){
-        Floor f = new Floor(n, this); //reference back to building;
+        Floor f = new Floor(n, this); //reference back to building
         floors.add(f);
         return f;
     }
