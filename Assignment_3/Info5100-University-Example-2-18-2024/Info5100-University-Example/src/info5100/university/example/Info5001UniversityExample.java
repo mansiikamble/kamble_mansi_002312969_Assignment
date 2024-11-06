@@ -173,7 +173,7 @@ public class Info5001UniversityExample {
         courseoffer11.AssignAsTeacher(teacher3);//  teacher.AssignAsTeacher(courseoffer); // OR  both work
         courseoffer11.AssignAsTeacher(teacher5);//  teacher.AssignAsTeacher(courseoffer); // OR  both work
        
-  
+    //  Create student     
  
         Person person11 = persondirectory.newPerson("A");  
         Person person12 = persondirectory.newPerson("B");   
